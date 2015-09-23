@@ -1,0 +1,12 @@
+package com.lxhub.sbt.plugin
+
+import com.lxhub.sbt.BuildInfoLxSbtPlugin
+
+/**
+ * Created by a-jotsai on 9/23/15.
+ */
+object Herro extends App {
+  val ver = BuildInfoLxSbtPlugin.version
+  val sha = BuildInfoLxSbtPlugin.gitHeadCommit
+  println(s"oh hai, my version=$ver sha1=$sha")
+}
