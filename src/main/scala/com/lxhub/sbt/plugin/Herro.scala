@@ -9,4 +9,5 @@ object Herro extends App {
   val ver = BuildInfoLxSbtPlugin.version
   val sha = BuildInfoLxSbtPlugin.gitHeadCommit
   println(s"oh hai, my version=$ver sha1=$sha")
+  // make more changes.
 }
