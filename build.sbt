@@ -5,7 +5,7 @@ name := "lx-sbt-plugin"
 scalaVersion := "2.10.5"
 
 // plugin: sbt-git
-git.useGitDescribe := true
+git.useGitDescribe := false
 git.baseVersion := "0.0.2"
 
 // plugin: sbt-buildinfo
