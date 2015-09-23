@@ -4,6 +4,7 @@ organization := "com.lxhub"
 name := "lx-sbt-plugin"
 scalaVersion := "2.10.5"
 version := "0.0.1"
+// MOAR
 
 // plugin: sbt-git
 git.useGitDescribe := true
