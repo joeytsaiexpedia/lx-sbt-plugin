@@ -8,6 +8,8 @@ scalaVersion := "2.10.5"
 git.useGitDescribe := false
 git.baseVersion := "0.0.2"
 
+// huh.
+
 // plugin: sbt-buildinfo
 lazy val buildinfoPluginSettings = Seq(
   buildInfoKeys := Seq[BuildInfoKey](
