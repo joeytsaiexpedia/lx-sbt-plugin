@@ -6,7 +6,7 @@ scalaVersion := "2.10.5"
 
 // plugin: sbt-git
 git.useGitDescribe := false
-git.baseVersion := "0.0.2"
+git.baseVersion := "0.0.2-SNAPSHOT"
 
 // huh.
 
