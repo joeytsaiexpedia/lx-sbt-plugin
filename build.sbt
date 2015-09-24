@@ -1,5 +1,5 @@
 
-sbtPlugin := true
+//sbtPlugin := true
 organization := "com.lxhub"
 name := "lx-sbt-plugin"
 scalaVersion := "2.10.5"
