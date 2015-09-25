@@ -9,9 +9,6 @@ publishMavenStyle := true
 git.useGitDescribe := false
 git.baseVersion := "0.0.3"
 
-
-// huh.
-
 // plugin: sbt-buildinfo
 lazy val buildinfoPluginSettings = Seq(
   buildInfoKeys := Seq[BuildInfoKey](
