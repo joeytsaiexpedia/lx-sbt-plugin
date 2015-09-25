@@ -3,10 +3,12 @@
 organization := "com.lxhub"
 name := "lx-sbt-plugin"
 scalaVersion := "2.10.5"
+publishMavenStyle := true
 
 // plugin: sbt-git
 git.useGitDescribe := false
 git.baseVersion := "0.0.2"
+
 
 // huh.
 
