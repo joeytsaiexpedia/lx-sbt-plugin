@@ -6,7 +6,7 @@ scalaVersion := "2.10.5"
 publishMavenStyle := true
 
 // plugin: sbt-git
-// Monotonically increasing version so most recent build is latest.
+// Monotonically increasing version so most recent build is latest
 // For brevity, use the first 7 characters of the sha1
 git.useGitDescribe := false
 git.baseVersion := "0.4.2"
