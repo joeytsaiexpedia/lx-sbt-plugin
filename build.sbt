@@ -8,6 +8,7 @@ publishMavenStyle := true
 // plugin: sbt-git
 git.useGitDescribe := false
 git.baseVersion := "0.0.3"
+git.formattedShaVersion := git.gitHeadCommit.value map { s => s"${git.formattedDateVersion.value}-$s" }
 
 // plugin: sbt-buildinfo
 lazy val buildinfoPluginSettings = Seq(
