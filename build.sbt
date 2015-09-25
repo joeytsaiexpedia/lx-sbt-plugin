@@ -6,9 +6,11 @@ scalaVersion := "2.10.5"
 publishMavenStyle := true
 
 // plugin: sbt-git
+// Monotonically increasing version so most recent build is latest.
+// For brevity, drop the first two digits of the year and use the first 7 characters of the sha1
 git.useGitDescribe := false
 git.baseVersion := "0.0.3"
-git.formattedShaVersion := git.gitHeadCommit.value map { s => s"${git.formattedDateVersion.value}-$s" }
+git.formattedShaVersion := git.gitHeadCommit.value map { s => s"${git.formattedDateVersion.value.drop(2)}-${s.take(7)}" }
 
 // plugin: sbt-buildinfo
 lazy val buildinfoPluginSettings = Seq(
