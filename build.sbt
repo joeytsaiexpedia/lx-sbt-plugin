@@ -9,7 +9,7 @@ publishMavenStyle := true
 // Monotonically increasing version so most recent build is latest.
 // For brevity, use the first 7 characters of the sha1
 git.useGitDescribe := false
-git.baseVersion := "0.0.3"
+git.baseVersion := "0.4.2"
 git.formattedShaVersion := git.gitHeadCommit.value map { s => s"${git.formattedDateVersion.value}-${s.take(7)}" }
 
 // plugin: sbt-buildinfo
