@@ -1,29 +1,11 @@
 
 sbtPlugin := true
 name := "lx-sbt-plugin"
-
-// plugin: sbt-git
-// Monotonically increasing version so most recent build is latest
-// version will be {gitBaseVersion}-{publishTime}-{first 7 chars of gitSha1}
-git.useGitDescribe := false
-git.baseVersion := "0.4.2"
-git.formattedShaVersion := git.gitHeadCommit.value map { s => s"${git.formattedDateVersion.value}-${s.take(7)}" }
-
-// plugin: sbt-buildinfo
-lazy val buildinfoPluginSettings = Seq(
-  buildInfoKeys := Seq[BuildInfoKey](
-    name, version, scalaVersion, sbtVersion,
-    // get the head sha from sbt-git
-    BuildInfoKey.map(git.gitHeadCommit) { case (k, v) => k -> v.getOrElse("") }
-  ),
-  buildInfoOptions += BuildInfoOption.BuildTime,
-  buildInfoPackage := "com.lxhub.sbt",
-  buildInfoObject := "BuildInfoLxSbtPlugin"
-)
+git.baseVersion := "0.4.1"
+buildInfoObject := "BuildInfoLxSbtPlugin"
 
 lazy val plugin = (project in file("."))
   .enablePlugins(LxSbtPlugin)
-  .settings(buildinfoPluginSettings: _*)
 
 val clearLocal = Def.task {
   val log = streams.value.log
@@ -42,3 +24,4 @@ publishLocal := {
 // Ensure the below is consistent with project/plugins.sbt
 addSbtPlugin("com.typesafe.sbt" % "sbt-git" % "0.8.5")
 addSbtPlugin("com.eed3si9n" % "sbt-buildinfo" % "0.5.0")
+addSbtPlugin("org.scalastyle" %% "scalastyle-sbt-plugin" % "0.7.0")
