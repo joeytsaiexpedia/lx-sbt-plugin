@@ -68,10 +68,7 @@ object LxSbtPlugin extends AutoPlugin {
 
     lxClasspathJars <<= (target, fullClasspath in Runtime) map { (target, cp) =>
       println(s"lx classpath jars: ${cp.map(_.data.toString).filter(_.contains("com.lxhub")).mkString("\n")}")
-    },
-
-    // Silence sbt console message SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
-    libraryDependencies += "org.slf4j" % "slf4j-nop" % "1.7.12"
+    }
   )
 
   private lazy val pluginSettings = Seq[Setting[_]](
