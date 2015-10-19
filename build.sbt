@@ -1,7 +1,7 @@
 
 sbtPlugin := true
 name := "lx-sbt-plugin"
-git.baseVersion := "0.4.1"
+git.baseVersion := "0.4.2"
 buildInfoObject := "BuildInfoLxSbtPlugin"
 
 lazy val plugin = (project in file("."))
