@@ -1,12 +1,10 @@
 package com.lxhub.sbt.plugin
 
 import com.typesafe.sbt.GitPlugin.autoImport._
-import com.typesafe.sbt.GitPlugin.autoImport._
-import com.typesafe.sbt.GitPlugin.autoImport._
+import com.typesafe.sbt.{GitBranchPrompt, GitVersioning}
 import org.scalastyle.sbt.ScalastylePlugin._
+import sbt.Keys._
 import sbt._
-import Keys._
-import com.typesafe.sbt.{GitVersioning, GitBranchPrompt}
 import sbtbuildinfo.BuildInfoPlugin
 import sbtbuildinfo.BuildInfoPlugin.autoImport._
 
