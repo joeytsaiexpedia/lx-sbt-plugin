@@ -17,7 +17,7 @@ import sbtbuildinfo.BuildInfoPlugin.autoImport._
  */
 object LxSbtPlugin extends AutoPlugin {
   object autoImport {
-    lazy val lxClasspathJars = TaskKey[Unit]("lx-classpath-jars", "Get lx jars in classpath")
+    lazy val lxJars = TaskKey[Unit]("lx-jars", "Get lx jars in classpath")
   }
 
   import autoImport._
@@ -61,12 +61,12 @@ object LxSbtPlugin extends AutoPlugin {
       "-unchecked",
       "-feature",
       "-target:jvm-1.7",
-      "-Ywarn-dead-code",
+      // can't enable this since warnings are fatal "-Ywarn-dead-code",
       "-Xlint",
       "-Xfatal-warnings"
     ),
 
-    lxClasspathJars <<= (target, fullClasspath in Runtime) map { (target, cp) =>
+    lxJars <<= (target, fullClasspath in Runtime) map { (target, cp) =>
       println(s"lx classpath jars: ${cp.map(_.data.toString).filter(_.contains("com.lxhub")).mkString("\n")}")
     }
   )
