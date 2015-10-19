@@ -17,12 +17,10 @@ import sbtbuildinfo.BuildInfoPlugin.autoImport._
  */
 object LxSbtPlugin extends AutoPlugin {
   object autoImport {
-    lazy val lxBaseVersion = settingKey[String]("lx uses GitVersioning; alias for git.baseVersion")
+    lazy val lxClasspathJars = TaskKey[Unit]("lx-classpath-jars", "Get lx jars in classpath")
   }
 
   import autoImport._
-
-  lxBaseVersion := "0.0.1"
 
   // noTrigger so users must use this via enablePlugin, but then we can include other plugins
   override def requires: Plugins = plugins.JvmPlugin && BuildInfoPlugin && GitBranchPrompt && GitVersioning
@@ -57,13 +55,20 @@ object LxSbtPlugin extends AutoPlugin {
     ),
 
     scalacOptions := Seq(
+      "-Xmax-classfile-name", "100", // classfile max needed to build on docker
       "-encoding", "UTF-8",
       "-deprecation",
       "-unchecked",
       "-feature",
+      "-target:jvm-1.7",
       "-Ywarn-dead-code",
-      "-Xlint"
+      "-Xlint",
+      "-Xfatal-warnings"
     ),
+
+    lxClasspathJars <<= (target, fullClasspath in Runtime) map { (target, cp) =>
+      println(s"lx classpath jars: ${cp.map(_.data.toString).filter(_.contains("com.lxhub")).mkString("\n")}")
+    },
 
     // Silence sbt console message SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
     libraryDependencies += "org.slf4j" % "slf4j-nop" % "1.7.12"
@@ -88,7 +93,7 @@ object LxSbtPlugin extends AutoPlugin {
     buildInfoKeys := Seq[BuildInfoKey](
       name, version, scalaVersion, sbtVersion,
       // get the head sha from sbt-git
-      "gitHeadCommit" -> git.gitHeadCommit.value.orNull
+      "gitHeadCommit" -> git.gitHeadCommit.value.getOrElse("")
     ),
     buildInfoOptions += BuildInfoOption.BuildTime,
     buildInfoPackage := "com.lxhub.sbt"
