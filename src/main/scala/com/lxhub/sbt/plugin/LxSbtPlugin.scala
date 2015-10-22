@@ -77,7 +77,7 @@ object LxSbtPlugin extends AutoPlugin {
 
     // plugin: sbt-git
     // Monotonically increasing version so most recent build is latest
-    // version will be {gitBaseVersion}-{publishTime}-{first 7 chars of gitSha1}{-SNAPSHOT if there are uncommited changes}
+    // version will be {gitBaseVersion}-{publishTime}-{first 7 chars of gitSha1}{-SNAPSHOT if there are uncommitted changes}
     // consumers should define git.baseVersion
     git.useGitDescribe := false,
     git.baseVersion := "0.0.1",
