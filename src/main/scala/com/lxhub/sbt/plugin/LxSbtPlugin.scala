@@ -18,6 +18,7 @@ import sbtbuildinfo.BuildInfoPlugin.autoImport._
 object LxSbtPlugin extends AutoPlugin {
   object autoImport {
     lazy val lxJars = TaskKey[Unit]("lx-jars", "Get lx jars in classpath")
+    lazy val lxUseJarsOnly = settingKey[Boolean]("Don't import the domain project")
   }
 
   import autoImport._
@@ -25,13 +26,13 @@ object LxSbtPlugin extends AutoPlugin {
   // noTrigger so users must use this via enablePlugin, but then we can include other plugins
   override def requires: Plugins = plugins.JvmPlugin && BuildInfoPlugin && GitBranchPrompt && GitVersioning
 
-  private val lxSnapshotRepo = "lxhub snapshots" at "https://nexus.lxhub.com/content/repositories/snapshots/"
-  private val lxReleaseRepo = "lxhub releases" at "https://nexus.lxhub.com/content/repositories/releases/"
+  override def projectSettings: Seq[Setting[_]] = Defaults.coreDefaultSettings ++ Defaults.itSettings ++
+    commonSettings ++ lxKeys ++ pluginSettings
 
   override val projectConfigurations: Seq[Configuration] = Seq(IntegrationTest)
 
-  override def projectSettings: Seq[Setting[_]] = Defaults.coreDefaultSettings ++ Defaults.itSettings ++
-    commonSettings ++ pluginSettings
+  private val lxSnapshotRepo = "lxhub snapshots" at "https://nexus.lxhub.com/content/repositories/snapshots/"
+  private val lxReleaseRepo = "lxhub releases" at "https://nexus.lxhub.com/content/repositories/releases/"
 
   private lazy val commonSettings = Seq[Setting[_]](
     organization := "com.lxhub",
@@ -64,11 +65,14 @@ object LxSbtPlugin extends AutoPlugin {
       // can't enable this since warnings are fatal "-Ywarn-dead-code",
       "-Xlint",
       "-Xfatal-warnings"
-    ),
+    )
+  )
 
+  private lazy val lxKeys = Seq[Setting[_]](
     lxJars <<= (target, fullClasspath in Runtime) map { (target, cp) =>
       println(s"lx classpath jars: ${cp.map(_.data.toString).filter(_.contains("com.lxhub")).mkString("\n")}")
-    }
+    },
+    lxUseJarsOnly := false
   )
 
   private lazy val pluginSettings = Seq[Setting[_]](
