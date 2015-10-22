@@ -18,7 +18,6 @@ import sbtbuildinfo.BuildInfoPlugin.autoImport._
 object LxSbtPlugin extends AutoPlugin {
   object autoImport {
     lazy val lxJars = TaskKey[Unit]("lx-jars", "Get lx jars in classpath")
-    lazy val lxUseJarsOnly = settingKey[Boolean]("Don't import the domain project")
   }
 
   import autoImport._
@@ -71,10 +70,10 @@ object LxSbtPlugin extends AutoPlugin {
   private lazy val lxKeys = Seq[Setting[_]](
     lxJars <<= (target, fullClasspath in Runtime) map { (target, cp) =>
       println(s"lx classpath jars: ${cp.map(_.data.toString).filter(_.contains("com.lxhub")).mkString("\n")}")
-    },
-    lxUseJarsOnly := false
+    }
   )
 
+  // consumers should define git.baseVersion and buildInfoObject
   private lazy val pluginSettings = Seq[Setting[_]](
     // plugin: scalastyle-sbt-plugin
     scalastyleFailOnError := true,
@@ -82,11 +81,18 @@ object LxSbtPlugin extends AutoPlugin {
     // plugin: sbt-git
     // Monotonically increasing version so most recent build is latest
     // version will be {gitBaseVersion}-{publishTime}-{first 7 chars of gitSha1}{-SNAPSHOT if there are uncommitted changes}
-    // consumers should define git.baseVersion
     git.useGitDescribe := false,
     git.baseVersion := "0.0.1",
     git.formattedShaVersion := {
-      val ver = git.gitHeadCommit.value map { s => s"${git.formattedDateVersion.value}-${s.take(7)}" }
+      val ver = git.gitHeadCommit.value map { s =>
+        // Weird behavior in Sonatype Nexus (which powers nexus.lxhub):
+        // If we publish a release version where the first 7 chars of gitSha1 are all numeric,
+        // Sonatype Nexus fails with status code 400: Bad Request
+        // As a workaround, detect this situation and add some characters.
+        val first = s.take(7)
+        val sha = if (first.forall(_.isDigit)) s"sha$first" else first
+        s"${git.formattedDateVersion.value}-$sha"
+      }
       if (git.gitUncommittedChanges.value) ver.map { v => s"$v-SNAPSHOT" } else ver
     },
 
