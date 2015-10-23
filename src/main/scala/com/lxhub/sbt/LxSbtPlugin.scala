@@ -1,7 +1,7 @@
-package com.lxhub.sbt.plugin
+package com.lxhub.sbt
 
+import com.typesafe.sbt.{GitVersioning, GitBranchPrompt}
 import com.typesafe.sbt.GitPlugin.autoImport._
-import com.typesafe.sbt.{GitBranchPrompt, GitVersioning}
 import org.scalastyle.sbt.ScalastylePlugin._
 import sbt.Keys._
 import sbt._
