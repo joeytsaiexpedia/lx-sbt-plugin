@@ -3,6 +3,19 @@ package com.lxhub.sbt
 import sbt._
 
 /**
+ * All dependencies which are used by our Scala projects are defined here.  Although it may seem more natural to define
+ * library dependencies at the project level, the reality of our related projects is we are supporting a collection of
+ * dependencies, many with dependencies of their own.  Therefore, we need to ensure that all our stack of libraries is
+ * known to work together, so versions should be defined in a single place.
+ *
+ * Please be very careful about adding dependencies.  There are several reasons to be cautious:
+ * 1) We have to support every dependency we add - any time we interact with another library we must learn and work
+ *    around its implementation.  Simply adding a dependency increases this surface area we must support.
+ * 2) Dependencies often have their own dependencies that can (and have) conflicted with other dependencies, which leads
+ *    to increased maintenance and hard-to-debug issues.
+ * 3) Our tools (SBT and IntelliJ) must manage all of our library dependencies, so increasing the number of dependencies
+ *    will slow the build process for all developers.
+ *
  * Created by a-jotsai on 10/23/15.
  */
 object LxDependencies {
