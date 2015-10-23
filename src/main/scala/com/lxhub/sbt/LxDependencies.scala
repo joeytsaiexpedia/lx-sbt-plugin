@@ -40,4 +40,28 @@ object LxDependencies {
     aws,
     actuarius % "container;compile;runtime;test"
   )
+
+  private val scalatraVersion = "2.3.1"
+
+  val lxapiDeps = Seq(
+    "org.scalatra" %% "scalatra" % scalatraVersion,
+    "org.scalatra" %% "scalatra-json" % scalatraVersion excludeAll ExclusionRule(organization = "org.slf4j"),
+    "org.scalatra" %% "scalatra-scalatest" % scalatraVersion % "test",
+    "org.scalatra" %% "scalatra-swagger" % scalatraVersion excludeAll ExclusionRule(organization = "org.slf4j"),
+    "ch.qos.logback" % "logback-classic" % "1.1.2" % "runtime",
+    "org.eclipse.jetty" % "jetty-webapp" % "8.1.8.v20121106" % "container",
+    "org.eclipse.jetty.orbit" % "javax.servlet" % "3.0.0.v201112011016" % "container;provided;test" artifacts Artifact("javax.servlet", "jar", "jar"),
+    "org.json4s" %% "json4s-jackson" % "3.2.11" excludeAll ExclusionRule(organization = "org.slf4j"),
+    "org.json4s" %% "json4s-ext" % "3.2.11",
+    "com.typesafe" % "config" % "1.2.1",
+    "net.databinder.dispatch" %% "dispatch-core" % "0.11.2",
+    "org.scalatest" %% "scalatest" % "2.0",
+    "com.lxhub" %% "sc-common" % "1.0",
+    // this findbugs dependency is a workaround https://issues.scala-lang.org/browse/SI-8978
+    "com.google.code.findbugs" % "jsr305" % "2.0.2",
+    "com.google.guava" % "guava" % "18.0",
+    "org.scalaz" %% "scalaz-core" % "7.1.1",
+    //"javax.servlet" % "javax.servlet-api" % "3.1.0" % "provided"
+    "org.glassfish.metro" % "webservices-rt" % "2.3"
+  )
 }
