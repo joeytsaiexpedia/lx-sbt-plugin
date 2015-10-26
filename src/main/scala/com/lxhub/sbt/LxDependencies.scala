@@ -55,7 +55,7 @@ object LxDependencies {
     "org.json4s" %% "json4s-ext" % "3.2.11",
     "com.typesafe" % "config" % "1.2.1",
     "net.databinder.dispatch" %% "dispatch-core" % "0.11.2",
-    "org.scalatest" %% "scalatest" % "2.0",
+    scalatest % "it,test",
     "com.lxhub" %% "sc-common" % "1.0",
     // this findbugs dependency is a workaround https://issues.scala-lang.org/browse/SI-8978
     "com.google.code.findbugs" % "jsr305" % "2.0.2",
