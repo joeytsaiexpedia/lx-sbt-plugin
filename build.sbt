@@ -1,11 +1,12 @@
 
-sbtPlugin := true
-name := "lx-sbt-plugin"
-git.baseVersion := "0.4.3"
-buildInfoObject := "BuildInfoLxSbtPlugin"
-
 lazy val plugin = (project in file("."))
   .enablePlugins(LxSbtPlugin)
+  .settings(
+    sbtPlugin := true,
+    name := "lx-sbt-plugin",
+    git.baseVersion := "0.4.3",
+    buildInfoObject := "BuildInfoLxSbtPlugin"
+  )
 
 val clearLocal = Def.task {
   val log = streams.value.log
